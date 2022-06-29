@@ -21,7 +21,7 @@
               <td>{{user.name.first}}</td>
               <td>{{user.gender}}</td>
               <td>{{user.registered.date.split("T")[0].split("-").reverse().join("/")}}</td>
-              <td><img src="../assets/view.png" @click="() => handleViewUser(user)"/></td>
+              <td><img src="../assets/view.png" @click="() => handleViewUser(user,'open')"/></td>
           </tr>
         </tbody>
 
@@ -32,10 +32,14 @@
 
     </div>
     <div class="popup" v-if="showUser">
+    <div class="popup-inner">
       <img src="handleImg(userView)" />
       <p>Nome:{{userView.name.first}}  {{userView.name.last}}</p>
       <p>Email:{{userView.email}}</p>
       <p>Genero: {{userView.gender}}</p>
+      <img src="../assets/close.png"  @click="handleViewUser"/>
+      
+    </div>
       
 
     </div>
@@ -77,9 +81,13 @@ export default {
       console.log(response.data.results);
     })
     },
-    handleViewUser: function(user) {
+    handleViewUser: function(user,oc) {
+      if(oc === 'open'){
       this.userView = user;
-      this.showUser = true;
+      return this.showUser = true;
+      }
+      this.showUser = false;
+     
     },
     handleImg: function(user) {
       return user.picture.thumbnail
@@ -140,8 +148,9 @@ img{
   position: fixed;
   flex-direction: column;
   align-items: center;
+  width: 50%;
   top: 0;
-  left: 0;
+  left:190px;
   right: 0;
   bottom: 0;
   z-index: 99;
@@ -149,6 +158,12 @@ img{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.popup-inner {
+  background: #fff;
+  padding: 32px;
+  display: flex;
 }
 
 </style>
