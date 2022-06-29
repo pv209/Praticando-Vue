@@ -32,12 +32,32 @@
 
     </div>
     <div class="popup" v-if="showUser">
+      <div class="pop-img">
+        <img :src="userView.picture.thumbnail" class="foto" />
+      </div>
     <div class="popup-inner">
-      <img src="handleImg(userView)" />
-      <p>Nome:{{userView.name.first}}  {{userView.name.last}}</p>
-      <p>Email:{{userView.email}}</p>
+    
+      
+      <p>Nome: {{userView.name.first}}  {{userView.name.last}}</p>
+      <p>Email: {{userView.email}}</p>
       <p>Genero: {{userView.gender}}</p>
-      <img src="../assets/close.png"  @click="handleViewUser"/>
+      <p>Data de nascimento: {{userView.registered.date.split("T")[0].split("-").reverse().join("/")}}</p>
+      <p>Telefone:  {{userView.phone}}</p>
+      <p>Nacionalidade: {{userView.nat}}</p>
+      <p>Endereco:</p>
+      <ul>
+
+        <li>Pais: {{userView.location.country}}</li>
+        <li>Estado: {{userView.location.state}}</li>
+        <li>Cidade: {{userView.location.city}}</li>
+        <li>Rua: {{userView.location.street}}</li>
+        
+      </ul>
+      <p>ID: {{userView.id.value}}</p>
+      <div class="close">
+        <img src="../assets/close.png"  @click="handleViewUser"/>
+      </div>  
+        
       
     </div>
       
@@ -89,9 +109,6 @@ export default {
       this.showUser = false;
      
     },
-    handleImg: function(user) {
-      return user.picture.thumbnail
-    }
 
       },
   computed:{
@@ -148,7 +165,7 @@ img{
   position: fixed;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  width: 600px;
   top: 0;
   left:190px;
   right: 0;
@@ -156,14 +173,47 @@ img{
   z-index: 99;
   background-color: #fff;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: baseline;
 }
 
 .popup-inner {
   background: #fff;
   padding: 32px;
   display: flex;
+  flex-direction: column;
 }
 
+.user-img {
+  display: flex;
+  flex-direction: column;
+  width:200px;
+  align-items: flex-start;
+}
+
+.pop-img {
+  display: flex;
+  width:100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.popup ul{
+  padding-left: 80px;
+}
+
+.foto{
+  width: 200px;
+  border-radius: 50%;
+}
+
+.close img{
+  float: right;
+}
+
+.close {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
+
+}
 </style>
